@@ -103,9 +103,13 @@ Board& Board::operator=(const Board &b){
 }
 
 string Board::draw(int num){
-     char temp=(char)num;
-    string name= "board_.ppm";
-    name.insert(6,1,temp);
+//     char temp=(char)num;
+//    string name= "board_.ppm";
+//    name.insert(6,1,temp);
+//    char* temp=(char*)num;
+    string temp=to_string(num);
+    string name= "board_"+temp+".ppm";
+   // name.insert(6,1,temp);
     ofstream imageFile(name, ios::out | ios::binary);
     imageFile << "P6" << endl << num <<" " << num << endl << 255 << endl;
     BnW image[num*num];
