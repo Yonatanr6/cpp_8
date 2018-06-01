@@ -126,8 +126,8 @@ string Board::draw(int num){
                 }
             }
         }
-     for(int i=0; i < num; i++)
-        for(int j=0; j< num;j++){
+     for(int i=0; i < size; i++)
+        for(int j=0; j< size;j++){
             if(this->board[i][j].get_node() == 'X'){
                 for(int m = 15; m<size-16; m++){
                     image[num*size*i+num*m+j*size+m].white=(255);

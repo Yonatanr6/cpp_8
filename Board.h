@@ -44,10 +44,10 @@ public:
 };
 
 struct BnW {
-  uint8_t black,white;
+   uint8_t black, white, blue;
 public:
   BnW() {}
-  BnW(uint8_t bk,uint8_t wh): black(bk), white(wh) {};
+  BnW(uint8_t bk, uint8_t wh, uint8_t blue): black(bk), white(wh), blue(blue) {};
 };
 
 class Node{
