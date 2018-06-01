@@ -122,7 +122,7 @@ string Board::draw(int num){
         for(int j=0; j< num;j++){
             for (int m = i*size+num; m < i*size+size-num; ++m){
                 for (int p = j * size + num; p < j * size + size - num; ++p){
-                    image[num * m + p].black = (255);
+                    image[num * m + p].white = (255);
                 }
             }
         }
@@ -130,7 +130,7 @@ string Board::draw(int num){
         for(int j=0; j< num;j++){
             if(this->board[i][j].get_node() == 'X'){
                 for(int m = 15; m<size-16; m++){
-                    image[num*size*i+num*m+j*size+m].white=(0);
+                    image[num*size*i+num*m+j*size+m].white=(255);
                 }   
                 }
         else if (board[i][j].get_node() == 'O'){
@@ -142,7 +142,7 @@ string Board::draw(int num){
                 for (int k = is; k <((i+1)*size);k++) {
                     for (int l = js; l < ((j+1)*size); l++) {
                         if(abs((k-im)*(k-im)+(l-jm)*(l-jm)-radius*radius)<= pow((size/radius),6)){
-                            image[num*k+l].black=(0);
+                            image[num*k+l].white=(255);
                              }
                     }
                 }
