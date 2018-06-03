@@ -17,7 +17,7 @@
 #include <list>
 #pragma once
 using namespace std;
-int count=0;
+
 
 
 class IllegalCoordinateException : public exception{
@@ -165,7 +165,6 @@ inline ostream& operator<<(ostream& out,const Node& node){
     is >> input;
     len = input.length(); 
     Board temp(len);
-    count++;
     for(int j=0; j < len; j++){
         temp.board[0][j]= input[j];
     }

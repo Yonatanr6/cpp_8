@@ -103,7 +103,8 @@ Board& Board::operator=(const Board &b){
 }
 
 string Board::draw(int num){
-    string temp=to_string(num+count);
+   // string c_time = to_string(ms.count());
+    string temp=to_string(num*size);
     string name= "board_"+temp+".ppm";
     ofstream imageFile(name, ios::out | ios::binary);
     
