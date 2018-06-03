@@ -105,7 +105,7 @@ class Board{
 public:    
     int size;
    Node **board;
-    
+   string input;
     friend ostream& operator<<(ostream& out,const Board& board);
     friend istream& operator>>(istream& is,const Board& board);
     string draw(int n);
@@ -160,21 +160,23 @@ inline ostream& operator<<(ostream& out,const Node& node){
 
 
  inline istream& operator>> (istream& is, Board& board){  
-    string str;
-    is>>str;
-    int n = str.length();
-    Board temp(n);
-    board=temp;
-    for (int i=0; i<n; i++){
-        board[{0,i}] = str[i];   
+    int len;
+    string input;
+    is >> input;
+    len = input.length(); 
+    Board temp(len);
+    for(int j=0; j < len; j++){
+        temp.board[0][j]= input[j];
     }
-    int curr = 1;
-    while(is>>str){
-        for (int i=0; i<n; i++){
-            board[{curr, i}] = str[i];
+    
+    for(int i=1; i <len; i++){
+        is >> input;
+        for(int j = 0; j < len; j++){
+            temp.board[i][j] = input[j];
         }
-        curr++;
     }
+    board=temp;
+    
     return is;
 }
 

@@ -106,7 +106,9 @@ string Board::draw(int num){
     string temp=to_string(num);
     string name= "board_"+temp+".ppm";
     ofstream imageFile(name, ios::out | ios::binary);
+    
     imageFile << "P6" << endl << num <<" " << num << endl << 255 << endl;
+    
     RGB image[num*num];
     double calc=num/size;
     double calc2= calc/size;
