@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+#include <ctime>
 #include "Board.h"
 #include <iostream>
 #include <vector>
@@ -103,53 +103,94 @@ Board& Board::operator=(const Board &b){
 }
 
 string Board::draw(int num){
-//     char temp=(char)num;
-//    string name= "board_.ppm";
-//    name.insert(6,1,temp);
-//    char* temp=(char*)num;
     string temp=to_string(num);
     string name= "board_"+temp+".ppm";
-   // name.insert(6,1,temp);
     ofstream imageFile(name, ios::out | ios::binary);
     imageFile << "P6" << endl << num <<" " << num << endl << 255 << endl;
-    BnW image[num*num];
-    for(int i=0;i<num; i++){
-        for(int j=0 ; j<num ; j++){
-          image[num*j+i].black = (i % 256);  
+    RGB image[num*num];
+    double calc=num/size;
+    double calc2= calc/size;
+
+
+     for (int j = 0; j < num; ++j)  {  
+        for (int i = 0; i < num; ++i) { 
+            image[num*j+i].red = (0);
+            image[num*j+i].green = (0);
+            image[num*j+i].blue = (0);
+
         }
     }
-    for(int i=0; i < num; i++)
-        for(int j=0; j< num;j++){
-            for (int m = i*size+num; m < i*size+size-num; ++m){
-                for (int p = j * size + num; p < j * size + size - num; ++p){
-                    image[num * m + p].white = (255);
-                }
-            }
-        }
+
+    for(int k=0;k<num;){
+           for(int j=calc;j<num;){
+             image[num*j+k].red = (255);
+             image[num*j+k].green = (255);
+            image[num*j+k].blue = (255);
+            
+           image[j+num*k].red = (255);
+             image[j+num*k].green = (255);
+            image[j+num*k].blue = (255);
+           j=j+calc;
+           }k=k+1;}
+
+   
+//     for(int i=1; i < size-1; i++)
+//        for(int j=1; j< size-1;j++){
+//            if(board[i][j].get_node() == 'X'){
+//                for(double m = i*num*calc; m< i*num*calc+calc; ){
+//                    int y=0;
+//                    for(double k=j*calc ; k< j*calc+calc;){
+//                    image[(int)m+(int)k].red=(50);
+//                     image[(int)m+(int)k].green=(150);
+//                      image[(int)m+(int)k].blue=(100);
+//                      image[2*(int)m+(int)k].red=(255);
+//                      y++;
+////                    image[num*(int)calc*i+num*(int)m+(int)calc+j*(int)calc-(int)m].green=(255);
+////                    image[num*(int)calc*i+num*(int)m+(int)calc+j*(int)calc-(int)m].blue=(255);
+//                    k=k+1;m=m+num;}
+//                }   
+//            }
+//                for(int m = 15; m<calc-16; m++){
+//                    image[num*(int)calc*i+num*m+j*(int)calc+m].red=(255);
+//                    image[num*(int)calc*i+num*m+j*(int)calc+m].green=(255);
+//                    image[num*(int)calc*i+num*m+j*(int)calc+m].blue=(255);
+//                    image[num*(int)calc*i+num*m+j*(int)calc+(int)calc-m].red=(255);
+//                    image[num*(int)calc*i+num*m+(int)calc+j*(int)calc-m].green=(255);
+//                    image[num*(int)calc*i+num*m+(int)calc+j*(int)calc-m].blue=(255);
+//            }
+//            }
      for(int i=0; i < size; i++)
         for(int j=0; j< size;j++){
-            if(this->board[i][j].get_node() == 'X'){
-                for(int m = 15; m<size-16; m++){
-                    image[num*size*i+num*m+j*size+m].white=(255);
-                }   
+            if(board[i][j].get_node() == 'X'){
+                for(int m = calc/calc2; m<calc; m++){
+                    int a= num*calc*i+j*calc;
+                    image[a+num*m+m].red=(255);
+                    image[a+num*m+m].green=(255);
+                    image[a+num*m+m].blue=(255);
+                    image[a+num*m+(int)calc-m].red=(255);
+                    image[a+num*m+(int)calc-m].green=(255);
+                    image[a+num*m+(int)calc-m].blue=(255);
                 }
+            }
         else if (board[i][j].get_node() == 'O'){
-                int a= num*size*i+j*size;
-                int b=a+num*(size/2)+(size/2);
-                int radius=size/2.5;
-                int is = i*size, js=j*size;
-                int im=is+size/2, jm=js+size/2;
-                for (int k = is; k <((i+1)*size);k++) {
-                    for (int l = js; l < ((j+1)*size); l++) {
-                        if(abs((k-im)*(k-im)+(l-jm)*(l-jm)-radius*radius)<= pow((size/radius),6)){
-                            image[num*k+l].white=(255);
-                             }
+                int a= num*calc*i+j*calc;
+                int b=a+num*(calc/2)+(calc/2);
+                int radius=calc/2.;
+                int is = i*calc, js=j*calc;
+                int im=is+calc/2, jm=js+calc/2;
+                for (int k = is; k <((i+1)*calc);k++) {
+                    for (int l = js; l < ((j+1)*calc); l++) {
+                        if(abs((k-im)*(k-im)+(l-jm)*(l-jm)-radius*radius)<= pow((calc/radius),6)){
+                            image[num*k+l].red=(255);
+                            image[num*k+l].green=(255);
+                            image[num*k+l].blue=(255);
+                        }
                     }
                 }
-        }
+            }
             
     }
-    imageFile.write(reinterpret_cast<char*>(&image), num*num);
+    imageFile.write(reinterpret_cast<char*>(&image), 3*num*num);
   imageFile.close();
   return name;
 }

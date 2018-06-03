@@ -43,11 +43,11 @@ public:
    }
 };
 
-struct BnW {
-   uint8_t black, white, blue;
+struct RGB {
+  uint8_t red, green, blue;
 public:
-  BnW() {}
-  BnW(uint8_t bk, uint8_t wh, uint8_t blue): black(bk), white(wh), blue(blue) {};
+  RGB() {}
+  RGB(uint8_t red, uint8_t green, uint8_t blue): red(red), green(green), blue(blue) {}
 };
 
 class Node{
@@ -160,8 +160,22 @@ inline ostream& operator<<(ostream& out,const Node& node){
 
 
  inline istream& operator>> (istream& is, Board& board){  
-    is>> board.size ;  
-    return is;  
+    string str;
+    is>>str;
+    int n = str.length();
+    Board temp(n);
+    board=temp;
+    for (int i=0; i<n; i++){
+        board[{0,i}] = str[i];   
+    }
+    int curr = 1;
+    while(is>>str){
+        for (int i=0; i<n; i++){
+            board[{curr, i}] = str[i];
+        }
+        curr++;
+    }
+    return is;
 }
 
 
